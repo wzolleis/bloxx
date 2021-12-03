@@ -11,13 +11,15 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {login} from "domain/login/actions/loginActions";
 import {Email, Password} from "common/types/commonTypes";
 import {useNavigate} from "react-router-dom";
 import {AppLinks} from "app/components/AppRoutes";
+import {useAppDispatch} from "app/state/hooks";
+import {loginUser} from "domain/login/state/loginSlice";
 
 const SignInView = () => {
     const navigate = useNavigate()
+    const dispatch = useAppDispatch()
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -28,7 +30,7 @@ const SignInView = () => {
         };
 
         if (email != null && password != null) {
-            login(email, password)
+            dispatch(loginUser({email, password}))
             navigate(`/${AppLinks.bloxx}`)
         }
     };
@@ -58,6 +60,7 @@ const SignInView = () => {
                         id="email"
                         label="Email Address"
                         name="email"
+                        defaultValue={'Jack'}
                         autoComplete="email"
                         autoFocus
                     />
@@ -69,6 +72,7 @@ const SignInView = () => {
                         label="Password"
                         type="password"
                         id="password"
+                        defaultValue={'geheim'}
                         autoComplete="current-password"
                     />
                     <FormControlLabel

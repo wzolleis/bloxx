@@ -50,8 +50,8 @@ const Layout = ({children}: PropsWithChildren<{}>) => {
     const classes = useStyles()
     const navigate = useNavigate()
     const location = useLocation()
-    const {credentials} = useAppSelector(selectLoginState)
-      const user = userRepository.retrieve(credentials.user || '')
+    const {user: userKey} = useAppSelector(selectLoginState)
+    const user = userRepository.retrieve(userKey || '')
     return (
         <div className={classes.root}>
             {/* App Bar */}

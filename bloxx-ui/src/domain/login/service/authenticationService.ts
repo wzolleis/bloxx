@@ -1,9 +1,11 @@
-import {Email, ObjectKey, Password, User} from "common/types/commonTypes";
+import {Email, Nullable, ObjectKey, Password} from "common/types/commonTypes";
 import objectKeys from "app/state/objectKeys";
 
-const authenticate = (email: Email, password: Password,  users: User[]= []): ObjectKey | null => {
+
+
+const authenticate = async ({email, password}: {email: Email, password: Password}): Promise<ObjectKey> => {
     // todo - fetch users and check password
-    return objectKeys.user.jack
+    return Promise.resolve(objectKeys.user.jack)
 }
 
 export default {

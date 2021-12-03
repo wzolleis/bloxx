@@ -1,33 +1,40 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppState} from "app/state/store";
 import {AppError, ObjectKey} from "common/types/commonTypes";
-
-export interface UserData {
-    user?: ObjectKey
-}
+import authenticationService from "domain/login/service/authenticationService";
+import userRepository from "infrastructure/users/repository/userRepository";
 
 interface LoginState {
-    credentials: UserData
+    user: ObjectKey | undefined
 }
 
 const initialState: LoginState = {
-    credentials: {}
+    user: undefined
+
 }
+
+// First, create the thunk
+export const loginUser = createAsyncThunk(
+    'login',
+    async (params: { email: string, password: string }, thunkAPI) => {
+        return await authenticationService.authenticate(params)
+    }
+)
+
 
 export const loginSlice = createSlice({
     name: 'login',
     initialState,
     reducers: {
-        userLogin: (state: LoginState, action: PayloadAction<UserData>) => {
-            state.credentials = action.payload
-        },
-        userLogout: (state: LoginState) => {
-            state = initialState
-        },
-    }
+     },
+    extraReducers: (builder) => {
+        // Add reducers for additional action types here, and handle loading state as needed
+        builder.addCase(loginUser.fulfilled, (state, action) => {
+            // Add user to the state array
+            state.user = action.payload
+        })
+    },
 })
-
-export const {userLogin, userLogout} = loginSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectLoginState = (state: AppState) => state.loginState
