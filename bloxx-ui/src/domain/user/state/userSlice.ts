@@ -8,13 +8,13 @@ interface UserState {
     users: User[]
 }
 
-const dschaeck: User = {
+const initialUser: User = {
     key: objectKeys.user.jack,
     name: 'Jack',
 }
 
 const initialState: UserState = {
-    users: [dschaeck]
+    users: [initialUser]
 }
 
 export const usersSlice = createSlice({

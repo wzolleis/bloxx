@@ -10,7 +10,8 @@ import {useAppSelector} from "app/state/hooks";
 import {findByKey} from "utils/arrayUtils";
 import {messages} from "common/i18n/messages";
 import {selectUserState} from "domain/user/state/userSlice";
-import {selectLoginState} from "common/state/loginSlice";
+import {selectLoginState} from "domain/login/state/loginSlice";
+import userRepository from "infrastructure/users/repository/userRepository";
 
 const drawerWidth = 240
 
@@ -52,8 +53,11 @@ const Layout = ({children}: PropsWithChildren<{}>) => {
     const location = useLocation()
     const {users} = useAppSelector(selectUserState)
     const {credentials} = useAppSelector(selectLoginState)
-    const user = findByKey(users, credentials.user || '')
+    if (!credentials.user) {
+        navigate("/signin")
+    }
 
+    const user = userRepository.retrieve(users, credentials.user || '')
     return (
         <div className={classes.root}>
             {/* App Bar */}

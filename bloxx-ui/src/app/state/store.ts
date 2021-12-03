@@ -1,7 +1,7 @@
 import {configureStore} from '@reduxjs/toolkit'
 import userReducer from 'domain/user/state/userSlice'
 import fetchingReducer from 'common/state/fetchingSlice'
-import loginReducer from 'common/state/loginSlice'
+import loginReducer from 'domain/login/state/loginSlice'
 import bloxxReducer from 'domain/bloxx/state/bloxxSlice'
 
 const store = configureStore({

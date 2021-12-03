@@ -9,7 +9,7 @@ interface BloxxState {
     bloxx: Bloxx[]
 }
 
-const bloxx: Bloxx[] = [
+const initialBloxx: Bloxx[] = [
     {
         key: objectKeys.bloxx.first,
         user: objectKeys.user.jack,
@@ -18,7 +18,7 @@ const bloxx: Bloxx[] = [
     },
 ]
 
-const initialState: BloxxState = {bloxx}
+const initialState: BloxxState = {bloxx: initialBloxx}
 
 export const bloxxSlice = createSlice({
     name: 'bloxx',

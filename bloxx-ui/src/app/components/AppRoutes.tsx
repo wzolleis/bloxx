@@ -4,6 +4,7 @@ import {RouteObject} from "react-router";
 import Layout from "app/components/Layout";
 import WelcomeView from "common/components/WelcomeView";
 import BloxxView from "domain/bloxx/components/BloxxView";
+import SignIn from "domain/login/components/SignIn";
 
 export const NotFoundView = () => {
     return (
@@ -27,6 +28,10 @@ const nestedPaths: RouteObject[] = [
                 element: <BloxxView/>
             },
         ],
+    },
+    {
+        path: 'signin',
+        element: <SignIn/>
     },
     {
         path: "*",
