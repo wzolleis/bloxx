@@ -3,14 +3,16 @@ import {AppState} from "app/state/store";
 import {AppError, ObjectKey} from "common/types/commonTypes";
 import authenticationService from "domain/login/service/authenticationService";
 import userRepository from "infrastructure/users/repository/userRepository";
+import {log} from "util";
 
 interface LoginState {
     user: ObjectKey | undefined
+    loading: string
 }
 
 const initialState: LoginState = {
-    user: undefined
-
+    user: undefined,
+    loading: 'idle'
 }
 
 // First, create the thunk
@@ -29,9 +31,20 @@ export const loginSlice = createSlice({
      },
     extraReducers: (builder) => {
         // Add reducers for additional action types here, and handle loading state as needed
+        builder.addCase(loginUser.rejected, (state, action) => {
+            // Add user to the state array
+            state.user = undefined
+            state.loading = action.meta.requestStatus
+        })
+        builder.addCase(loginUser.pending, (state, action) => {
+            // Add user to the state array
+            state.user = undefined
+            state.loading = action.meta.requestStatus
+        })
         builder.addCase(loginUser.fulfilled, (state, action) => {
             // Add user to the state array
             state.user = action.payload
+            state.loading = action.meta.requestStatus
         })
     },
 })
