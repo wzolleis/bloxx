@@ -1,14 +1,14 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {AppState} from "app/state/store";
 
-interface FetchingData {
+export interface FetchingData {
     active: boolean
     action?: string
     code?: number
     reason?: string
 }
 
-interface FetchingState {
+export interface FetchingState {
     fetching: FetchingData
 }
 

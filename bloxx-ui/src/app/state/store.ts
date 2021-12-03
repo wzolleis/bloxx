@@ -1,5 +1,4 @@
 import {configureStore} from '@reduxjs/toolkit'
-import userReducer from 'domain/user/state/userSlice'
 import fetchingReducer from 'common/state/fetchingSlice'
 import loginReducer from 'domain/login/state/loginSlice'
 import bloxxReducer from 'domain/bloxx/state/bloxxSlice'
@@ -8,7 +7,6 @@ const store = configureStore({
     reducer: {
         fetchingState: fetchingReducer,
         loginState: loginReducer,
-        userState: userReducer,
         bloxxState: bloxxReducer
     },
 })

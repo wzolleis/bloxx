@@ -16,9 +16,8 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import {ClassNameMap, makeStyles} from "@mui/styles";
 import {messages} from "common/i18n/messages";
 import {useAppSelector} from "app/state/hooks";
-import {findByKey} from "utils/arrayUtils";
-import {Bloxx, User} from "common/types/commonTypes";
-import {selectUserState} from "domain/user/state/userSlice";
+import {Bloxx, Nullable, User} from "common/types/commonTypes";
+import userRepository from "infrastructure/users/repository/userRepository";
 
 const styles = {
     parentFlexSplit: {
@@ -37,7 +36,7 @@ export interface BloxxCardProps {
 }
 
 interface BloxxCardHeaderProps extends BloxxCardProps {
-    user: User | undefined
+    user: Nullable<User>
     bloxx: Bloxx
     handleMoreActionsClick: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
@@ -131,7 +130,6 @@ const BloxxCardDetailView = ({bloxx, expanded}: BloxxCardDetailViewProps) => {
 }
 
 const BloxxCard = (props: BloxxCardProps) => {
-    const {users} = useAppSelector(selectUserState)
     const [expanded, setExpanded] = React.useState(false);
     const classes = useStyles()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -148,7 +146,7 @@ const BloxxCard = (props: BloxxCardProps) => {
     };
 
     const {bloxx} = props
-    const user = findByKey(users, bloxx.user)
+    const user = userRepository.retrieve(bloxx.user)
 
     return (
         <Card>

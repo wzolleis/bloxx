@@ -1,14 +1,14 @@
-import {ObjectKey, User} from "common/types/commonTypes";
+import {Email, Nullable, ObjectKey, User} from "common/types/commonTypes";
 
-const unknownUser: User = {
-    key: 'unknown',
-    name: 'unknown'
+const retrieve = (key: ObjectKey, users: User[]= []): Nullable<User> => {
+    return users.find((it) => it.key === key) || null
 }
 
-const retrieve = (users: User[], key: ObjectKey, unknown = unknownUser) => {
-    return users.find((it) => it.key === key) || unknown
+const findByMail = (email: Email,  users: User[]= []): Nullable<User> => {
+    return users.find((it) => it.mail === email) || null
 }
 
 export default {
-    retrieve
+    retrieve,
+    findByMail
 }

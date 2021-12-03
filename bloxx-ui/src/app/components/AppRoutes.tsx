@@ -4,7 +4,7 @@ import {RouteObject} from "react-router";
 import Layout from "app/components/Layout";
 import WelcomeView from "common/components/WelcomeView";
 import BloxxView from "domain/bloxx/components/BloxxView";
-import SignIn from "domain/login/components/SignIn";
+import SignInView from "domain/login/components/SignInView";
 
 export const NotFoundView = () => {
     return (
@@ -14,24 +14,32 @@ export const NotFoundView = () => {
     )
 }
 
+export const AppLinks = {
+    root: '/',
+    signin: 'signin',
+    welcome: 'welcome',
+    bloxx: 'bloxx'
+}
+
 const nestedPaths: RouteObject[] = [
     {
         path: "/",
         element: <Layout/>,
         children: [
             {
-                path: 'welcome',
+                path: AppLinks.signin,
+                element: <SignInView/>,
+                index: true
+            },
+            {
+                path: AppLinks.welcome,
                 element: <WelcomeView/>,
             },
             {
-                path: "bloxx",
+                path: AppLinks.bloxx,
                 element: <BloxxView/>
             },
         ],
-    },
-    {
-        path: 'signin',
-        element: <SignIn/>
     },
     {
         path: "*",

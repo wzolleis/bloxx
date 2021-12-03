@@ -1,6 +1,5 @@
 import {User} from "common/types/commonTypes";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AppState} from "app/state/store";
 import {remove, update} from "utils/arrayUtils";
 import objectKeys from "app/state/objectKeys";
 
@@ -11,6 +10,8 @@ interface UserState {
 const initialUser: User = {
     key: objectKeys.user.jack,
     name: 'Jack',
+    mail: 'jack@jack.com',
+    password: 'geheim'
 }
 
 const initialState: UserState = {
@@ -36,9 +37,8 @@ export const usersSlice = createSlice({
     }
 })
 
-export const {createUserAction, updateUserAction, listUserAction, removeUserAction} = usersSlice.actions
-
+// export const {createUserAction, updateUserAction, listUserAction, removeUserAction} = usersSlice.actions
 // Other code such as selectors can use the imported `RootState` type
-export const selectUserState = (state: AppState) => state.userState
-
-export default usersSlice.reducer
+// export const selectUserState = (state: AppState) => state.userState
+//
+// export default usersSlice.reducer
