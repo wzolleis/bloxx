@@ -12,7 +12,7 @@ export interface User extends WithKey {
     password: string
 }
 
-export interface Bloxx extends WithKey {
+export interface Post extends WithKey {
     user: ObjectKey
     title: string
     content: string

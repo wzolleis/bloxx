@@ -1,9 +1,7 @@
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {AppState} from "app/state/store";
-import {AppError, ObjectKey} from "common/types/commonTypes";
+import { ObjectKey} from "common/types/commonTypes";
 import authenticationService from "domain/login/service/authenticationService";
-import userRepository from "infrastructure/users/repository/userRepository";
-import {log} from "util";
 
 interface LoginState {
     user: ObjectKey | undefined
@@ -23,12 +21,10 @@ export const loginUser = createAsyncThunk(
     }
 )
 
-
 export const loginSlice = createSlice({
     name: 'login',
     initialState,
-    reducers: {
-     },
+    reducers: {},
     extraReducers: (builder) => {
         // Add reducers for additional action types here, and handle loading state as needed
         builder.addCase(loginUser.rejected, (state, action) => {

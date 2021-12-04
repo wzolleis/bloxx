@@ -9,6 +9,7 @@
     "@mui/material": "^5.2.1",
     "@mui/styles": "^5.2.1",
     "@reduxjs/toolkit": "^1.6.2",
+    "axios": "^0.24.0",
     "date-fns": "^2.26.0",
     "faker": "^5.5.3",
     "history": "^5.1.0",
@@ -46,7 +47,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "server": "json-server --watch --port 5000 --snapshots ./database/snapshots ./database/data.json",
+    "server": "json-server --watch --port 5000 --snapshots ./server/database/snapshots ./server/database/data.json  --routes ./server/routes.json",
     "test-coverage": "npm run test -- --coverage",
     "tsc": "tsc",
     "eject": "react-scripts eject"

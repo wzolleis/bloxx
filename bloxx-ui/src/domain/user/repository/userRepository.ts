@@ -8,7 +8,9 @@ const findByMail = (email: Email,  users: User[]= []): Nullable<User> => {
     return users.find((it) => it.mail === email) || null
 }
 
-export default {
+const userRepository = {
     retrieve,
     findByMail
 }
+
+export default userRepository

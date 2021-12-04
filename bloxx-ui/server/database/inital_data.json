@@ -16,6 +16,7 @@
   "users": {
     "id": 1,
     "name": "jack",
-    "password": "xxxx"
+    "mail": "lumberjack@traders.com",
+    "password": "geheim"
   }
 }

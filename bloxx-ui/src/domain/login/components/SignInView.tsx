@@ -23,15 +23,15 @@ const SignInView = () => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
+        const formData = new FormData(event.currentTarget);
         const {email, password}: { email: Email, password: Password } = {
-            email: data.get('email') as string,
-            password: data.get('password') as string,
+            email: formData.get('email') as string,
+            password: formData.get('password') as string,
         };
 
         if (email != null && password != null) {
             dispatch(loginUser({email, password}))
-            navigate(`/${AppLinks.bloxx}`)
+            navigate(`/${AppLinks.posts}`)
         }
     };
 

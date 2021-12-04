@@ -1,4 +1,4 @@
-import {Email, Nullable, ObjectKey, Password} from "common/types/commonTypes";
+import {Email, ObjectKey, Password} from "common/types/commonTypes";
 import objectKeys from "app/state/objectKeys";
 
 

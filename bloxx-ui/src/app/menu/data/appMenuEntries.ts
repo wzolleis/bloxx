@@ -8,13 +8,13 @@ export const menuItems: AppMenuEntry[] = [
         iconType: "Welcome"
     },
     {
-        path: '/bloxx',
-        title: 'Bloxx',
-        key: 'bloxx',
-        iconType: "Bloxx"
+        path: '/posts',
+        title: 'Posts',
+        key: 'posts',
+        iconType: "Post"
     },
     {
-        path: '/user',
+        path: '/users',
         title: 'User',
         key: 'user',
         iconType: "Player"

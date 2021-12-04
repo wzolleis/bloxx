@@ -9,8 +9,7 @@ import {AppTheme} from "app/components/App";
 import {useAppSelector} from "app/state/hooks";
 import {messages} from "common/i18n/messages";
 import {selectLoginState} from "domain/login/state/loginSlice";
-import userRepository from "infrastructure/users/repository/userRepository";
-import {AppLinks} from "app/components/AppRoutes";
+import userRepository from "domain/user/repository/userRepository";
 
 const drawerWidth = 240
 

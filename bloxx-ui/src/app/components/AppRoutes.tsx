@@ -1,24 +1,20 @@
 import React from "react";
-import {useRoutes} from "react-router-dom";
+import {useNavigate, useRoutes} from "react-router-dom";
 import {RouteObject} from "react-router";
 import Layout from "app/components/Layout";
 import WelcomeView from "common/components/WelcomeView";
-import BloxxView from "domain/bloxx/components/BloxxView";
+import PostsView from "domain/post/components/PostsView";
 import SignInView from "domain/login/components/SignInView";
+import {UsersView} from "domain/user/components/UsersView";
+import {NotFoundView} from "app/components/NotFoundView";
 
-export const NotFoundView = () => {
-    return (
-        <main style={{padding: "1rem"}}>
-            <p>There's nothing here!</p>
-        </main>
-    )
-}
 
 export const AppLinks = {
     root: '/',
     signin: 'signin',
     welcome: 'welcome',
-    bloxx: 'bloxx'
+    posts: 'posts',
+    users: 'users'
 }
 
 const nestedPaths: RouteObject[] = [
@@ -36,9 +32,13 @@ const nestedPaths: RouteObject[] = [
                 element: <WelcomeView/>,
             },
             {
-                path: AppLinks.bloxx,
-                element: <BloxxView/>
+                path: AppLinks.posts,
+                element: <PostsView/>
             },
+            {
+                path: AppLinks.users,
+                element: <UsersView/>
+            }
         ],
     },
     {

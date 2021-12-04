@@ -15,9 +15,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import {ClassNameMap, makeStyles} from "@mui/styles";
 import {messages} from "common/i18n/messages";
-import {useAppSelector} from "app/state/hooks";
-import {Bloxx, Nullable, User} from "common/types/commonTypes";
-import userRepository from "infrastructure/users/repository/userRepository";
+import {Post, Nullable, User} from "common/types/commonTypes";
+import userRepository from "domain/user/repository/userRepository";
 
 const styles = {
     parentFlexSplit: {
@@ -28,26 +27,26 @@ const styles = {
         marginLeft: "auto"
     }
 }
-type BloxxCardStyles = keyof typeof styles
+type PostCardStyles = keyof typeof styles
 const useStyles = makeStyles(styles)
 
-export interface BloxxCardProps {
-    bloxx: Bloxx
+export interface PostCardProps {
+    post: Post
 }
 
-interface BloxxCardHeaderProps extends BloxxCardProps {
+interface PostCardHeaderProps extends PostCardProps {
     user: Nullable<User>
-    bloxx: Bloxx
+    post: Post
     handleMoreActionsClick: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-interface BloxxCardActionsProps extends BloxxCardProps {
-    classes: ClassNameMap<BloxxCardStyles>
+interface PostCardActionsProps extends PostCardProps {
+    classes: ClassNameMap<PostCardStyles>
     handleExpandClick: () => void
     expanded: boolean
 }
 
-const BloxxCardActions = ({classes, handleExpandClick, expanded}: BloxxCardActionsProps) => {
+const BloxxCardActions = ({classes, handleExpandClick, expanded}: PostCardActionsProps) => {
     return (
         <CardActions disableSpacing className={classes.parentFlexSplit}>
             <IconButton>
@@ -61,7 +60,7 @@ const BloxxCardActions = ({classes, handleExpandClick, expanded}: BloxxCardActio
     )
 }
 
-const BloxxCardContent = ({bloxx: {content}}: BloxxCardProps) => {
+const PostCardContent = ({post: {content}}: PostCardProps) => {
     return (
         <CardContent>
             <Typography variant="body2" color="text.secondary">{content}</Typography>
@@ -69,8 +68,8 @@ const BloxxCardContent = ({bloxx: {content}}: BloxxCardProps) => {
     )
 }
 
-const BloxxCardHeader = ({bloxx, user, handleMoreActionsClick}: BloxxCardHeaderProps) => {
-    const {title} = bloxx
+const PostCardHeader = ({post, user, handleMoreActionsClick}: PostCardHeaderProps) => {
+    const {title} = post
     return (
         <CardHeader
             avatar={
@@ -89,13 +88,13 @@ const BloxxCardHeader = ({bloxx, user, handleMoreActionsClick}: BloxxCardHeaderP
     )
 }
 
-interface BloxxCardMenuProps extends BloxxCardProps {
+interface PostCardMenuProps extends PostCardProps {
     open: boolean
     anchorEl: null | HTMLElement
     handleBloxxMenuClose: () => void
 }
 
-const BloxxCardMenu = ({bloxx, handleBloxxMenuClose, anchorEl, open}: BloxxCardMenuProps) => {
+const PostCardMenu = ({post, handleBloxxMenuClose, anchorEl, open}: PostCardMenuProps) => {
     return (
         <Menu
             id="bloxx-card-menu"
@@ -111,12 +110,12 @@ const BloxxCardMenu = ({bloxx, handleBloxxMenuClose, anchorEl, open}: BloxxCardM
         </Menu>
     )
 }
-interface BloxxCardDetailViewProps extends BloxxCardProps {
+interface PostCardDetailViewProps extends PostCardProps {
     expanded: boolean
 }
 
-const BloxxCardDetailView = ({bloxx, expanded}: BloxxCardDetailViewProps) => {
-    const {content} = bloxx
+const PostCardDetailView = ({post, expanded}: PostCardDetailViewProps) => {
+    const {content} = post
 
     return (
         <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -129,7 +128,7 @@ const BloxxCardDetailView = ({bloxx, expanded}: BloxxCardDetailViewProps) => {
     )
 }
 
-const BloxxCard = (props: BloxxCardProps) => {
+const PostView = (props: PostCardProps) => {
     const [expanded, setExpanded] = React.useState(false);
     const classes = useStyles()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -145,18 +144,18 @@ const BloxxCard = (props: BloxxCardProps) => {
         setExpanded(!expanded);
     };
 
-    const {bloxx} = props
-    const user = userRepository.retrieve(bloxx.user)
+    const {post} = props
+    const user = userRepository.retrieve(post.user)
 
     return (
         <Card>
-            <BloxxCardHeader bloxx={bloxx} user={user} handleMoreActionsClick={handleMoreActionsClick}/>
-            <BloxxCardMenu bloxx={bloxx} open={open} anchorEl={anchorEl} handleBloxxMenuClose={handleBloxxMenuClose}/>
-            <BloxxCardContent bloxx={bloxx}/>
-            <BloxxCardActions bloxx={bloxx} classes={classes} handleExpandClick={handleExpandClick} expanded={expanded}/>
-           <BloxxCardDetailView bloxx={bloxx} expanded={expanded}/>
+            <PostCardHeader post={post} user={user} handleMoreActionsClick={handleMoreActionsClick}/>
+            <PostCardMenu post={post} open={open} anchorEl={anchorEl} handleBloxxMenuClose={handleBloxxMenuClose}/>
+            <PostCardContent post={post}/>
+            <BloxxCardActions post={post} classes={classes} handleExpandClick={handleExpandClick} expanded={expanded}/>
+           <PostCardDetailView post={post} expanded={expanded}/>
         </Card>
     )
 }
 
-export default BloxxCard
+export default PostView

@@ -1,14 +1,18 @@
 import {configureStore} from '@reduxjs/toolkit'
 import fetchingReducer from 'common/state/fetchingSlice'
 import loginReducer from 'domain/login/state/loginSlice'
-import bloxxReducer from 'domain/bloxx/state/bloxxSlice'
+import postReducer from 'domain/post/state/postSlice'
+import {userApi} from "domain/user/api/userApi";
 
 const store = configureStore({
     reducer: {
         fetchingState: fetchingReducer,
         loginState: loginReducer,
-        bloxxState: bloxxReducer
+        postState: postReducer,
+        ["api/userApi"]: userApi.reducer,
     },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(userApi.middleware),
 })
 
 
