@@ -1,5 +1,16 @@
 import React, {PropsWithChildren} from "react";
-import {AppBar, Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography} from "@mui/material";
+import {
+    AppBar,
+    Box,
+    Button,
+    Drawer,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    Toolbar,
+    Typography
+} from "@mui/material";
 import {makeStyles} from '@mui/styles';
 import {getIcon} from "common/icons/iconFactory";
 import {useLocation, useNavigate} from "react-router-dom";
@@ -10,6 +21,7 @@ import {useAppSelector} from "app/state/hooks";
 import {messages} from "common/i18n/messages";
 import {selectLoginState} from "domain/login/state/loginSlice";
 import userRepository from "domain/user/repository/userRepository";
+import {useGetUserByKeyQuery} from "domain/user/api/userApi";
 
 const drawerWidth = 240
 
@@ -49,8 +61,13 @@ const Layout = ({children}: PropsWithChildren<{}>) => {
     const classes = useStyles()
     const navigate = useNavigate()
     const location = useLocation()
+
+    // angemeldeten User laden
     const {user: userKey} = useAppSelector(selectLoginState)
-    const user = userRepository.retrieve(userKey || '')
+    const {data} = useGetUserByKeyQuery(userKey || "")
+    let user = null
+    if (data?.length === 1) user = data[0]
+
     return (
         <div className={classes.root}>
             {/* App Bar */}
@@ -61,7 +78,7 @@ const Layout = ({children}: PropsWithChildren<{}>) => {
             >
                 <Toolbar>
                     <div className={classes.userName}>
-                        <Typography>{user?.name || messages.common.noSelection}</Typography>
+                        <Typography>{`Hi ${user?.name || messages.common.noSelection}`}</Typography>
                     </div>
                 </Toolbar>
             </AppBar>

@@ -17,6 +17,7 @@ import {ClassNameMap, makeStyles} from "@mui/styles";
 import {messages} from "common/i18n/messages";
 import {Post, Nullable, User} from "common/types/commonTypes";
 import userRepository from "domain/user/repository/userRepository";
+import {useGetUserByNameQuery} from "domain/user/api/userApi";
 
 const styles = {
     parentFlexSplit: {
@@ -132,6 +133,9 @@ const PostView = (props: PostCardProps) => {
     const [expanded, setExpanded] = React.useState(false);
     const classes = useStyles()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const {data} = useGetUserByNameQuery(props.post.user)
+    console.log("user by name", JSON.stringify(data))
+
     const open = Boolean(anchorEl);
     const handleMoreActionsClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -145,7 +149,8 @@ const PostView = (props: PostCardProps) => {
     };
 
     const {post} = props
-    const user = userRepository.retrieve(post.user)
+    let user = null
+    if (data?.length === 1) user = data[0]
 
     return (
         <Card>

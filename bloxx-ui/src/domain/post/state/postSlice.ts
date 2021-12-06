@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AppState} from "app/state/store";
+import {AppDispatch, AppState} from "app/state/store";
 import {Post} from "common/types/commonTypes";
 import {remove, update} from "utils/arrayUtils";
 
@@ -8,17 +8,10 @@ interface PostState {
     posts: Post[]
 }
 
-// {
-//     key: objectKeys.bloxx.first,
-//         user: objectKeys.user.jack,
-//     title: 'Tom Bombadil',
-//     content: 'Der erste der da war und der letzte der geht'
-// },
-
 const initialState: PostState = {posts: []}
 
 export const postSlice = createSlice({
-    name: 'bloxx',
+    name: 'posts',
     initialState,
     reducers: {
         createPost: (state: PostState, action: PayloadAction<Post>) => {
@@ -36,9 +29,13 @@ export const postSlice = createSlice({
     }
 })
 
-export const {createPost, removePost, updatePost, listPosts} = postSlice.actions
+export const {actions} = postSlice
+
+const {reducer} = postSlice
+
+export const {createPost, removePost, updatePost, listPosts} = actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectPosts = (state: AppState) => state.postState
 
-export default postSlice.reducer
+export default reducer

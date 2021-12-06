@@ -11,16 +11,18 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {Email, Password} from "common/types/commonTypes";
+import {Email, Password, User} from "common/types/commonTypes";
 import {useNavigate} from "react-router-dom";
 import {AppLinks} from "app/components/AppRoutes";
 import {useAppDispatch} from "app/state/hooks";
 import {loginUser} from "domain/login/state/loginSlice";
+import {useGetUsersQuery} from "domain/user/api/userApi";
 
 const SignInView = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
+    const {data} = useGetUsersQuery()
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);

@@ -1,9 +1,16 @@
 {
-  "bloxx": [
+  "posts": [
     {
       "id": 1,
-      "title": "json-server",
-      "author": "jack"
+      "key": "1",
+      "title": "json-server 1",
+      "user": "Jack"
+    },
+    {
+      "id": 2,
+      "key": "2",
+      "title": "json-server 2",
+      "user": "Jack"
     }
   ],
   "comments": [
@@ -13,10 +20,12 @@
       "postId": 1
     }
   ],
-  "users": {
-    "id": 1,
-    "name": "jack",
-    "mail": "lumberjack@traders.com",
-    "password": "geheim"
-  }
+  "users": [
+    {
+      "id": "1",
+      "name": "Jack",
+      "mail": "lumberjack@traders.com",
+      "password": "geheim"
+    }
+  ]
 }

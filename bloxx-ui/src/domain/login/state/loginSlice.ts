@@ -2,6 +2,7 @@ import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {AppState} from "app/state/store";
 import { ObjectKey} from "common/types/commonTypes";
 import authenticationService from "domain/login/service/authenticationService";
+import objectKeys from "app/state/objectKeys";
 
 interface LoginState {
     user: ObjectKey | undefined
@@ -9,7 +10,7 @@ interface LoginState {
 }
 
 const initialState: LoginState = {
-    user: undefined,
+    user: objectKeys.user.jack,
     loading: 'idle'
 }
 
