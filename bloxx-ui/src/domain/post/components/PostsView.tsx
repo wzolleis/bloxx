@@ -14,7 +14,7 @@ const PostsView = () => {
 
     useEffect(() => {
         dispatch(findAllPosts())
-    }, [dispatch, postsAsString])
+    }, [postsAsString])
 
     return (
         <Grid sx={{flexGrow: 1}} container spacing={{xs: 2, md: 3}} columns={{xs: 1, sm: 1, md: 1}}>

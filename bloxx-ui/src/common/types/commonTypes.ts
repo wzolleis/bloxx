@@ -24,3 +24,7 @@ export interface AppError {
     reason: string
     code: number
 }
+
+export interface ActionHandler {
+    handleEdit: () => void
+}

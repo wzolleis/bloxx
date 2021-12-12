@@ -4,8 +4,11 @@ import {
     Card,
     CardActions,
     CardContent,
-    CardHeader, Collapse,
-    IconButton, Menu, MenuItem,
+    CardHeader,
+    Collapse,
+    IconButton,
+    Menu,
+    MenuItem,
     Typography
 } from "@mui/material";
 import {red} from "@mui/material/colors";
@@ -15,8 +18,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import {ClassNameMap, makeStyles} from "@mui/styles";
 import {messages} from "common/i18n/messages";
-import {Post, Nullable, User} from "common/types/commonTypes";
+import {ActionHandler, Nullable, Post, User} from "common/types/commonTypes";
 import {useGetUserByNameQuery} from "domain/user/api/userApi";
+import PostEditor from "domain/post/components/PostEditor";
 
 const styles = {
     parentFlexSplit: {
@@ -46,7 +50,7 @@ interface PostCardActionsProps extends PostCardProps {
     expanded: boolean
 }
 
-const BloxxCardActions = ({classes, handleExpandClick, expanded}: PostCardActionsProps) => {
+const PostCardActions = ({classes, handleExpandClick, expanded}: PostCardActionsProps) => {
     return (
         <CardActions disableSpacing className={classes.parentFlexSplit}>
             <IconButton>
@@ -91,25 +95,29 @@ const PostCardHeader = ({post, user, handleMoreActionsClick}: PostCardHeaderProp
 interface PostCardMenuProps extends PostCardProps {
     open: boolean
     anchorEl: null | HTMLElement
-    handleBloxxMenuClose: () => void
+    handleMenuClose: () => void
+    actionHandler: ActionHandler
 }
 
-const PostCardMenu = ({post, handleBloxxMenuClose, anchorEl, open}: PostCardMenuProps) => {
+const PostCardMenu = ({post, actionHandler, handleMenuClose, anchorEl, open}: PostCardMenuProps) => {
+    const {handleEdit} = actionHandler
+
     return (
         <Menu
             id="bloxx-card-menu"
             anchorEl={anchorEl}
             open={open}
-            onClose={handleBloxxMenuClose}
+            onClose={handleMenuClose}
             MenuListProps={{'aria-labelledby': 'basic-button',}}
         >
-            <MenuItem onClick={handleBloxxMenuClose}>{messages.crudActions.create}</MenuItem>
-            <MenuItem onClick={handleBloxxMenuClose}>{messages.crudActions.edit}</MenuItem>
-            <MenuItem onClick={handleBloxxMenuClose}>{messages.crudActions.save}</MenuItem>
-            <MenuItem onClick={handleBloxxMenuClose}>{messages.crudActions.delete}</MenuItem>
+            <MenuItem onClick={handleMenuClose}>{messages.crudActions.create}</MenuItem>
+            <MenuItem onClick={handleEdit}>{messages.crudActions.edit}</MenuItem>
+            <MenuItem onClick={handleMenuClose}>{messages.crudActions.save}</MenuItem>
+            <MenuItem onClick={handleMenuClose}>{messages.crudActions.delete}</MenuItem>
         </Menu>
     )
 }
+
 interface PostCardDetailViewProps extends PostCardProps {
     expanded: boolean
 }
@@ -128,18 +136,17 @@ const PostCardDetailView = ({post, expanded}: PostCardDetailViewProps) => {
     )
 }
 
-const PostView = (props: PostCardProps) => {
+const PostView = ({post}: PostCardProps) => {
     const [expanded, setExpanded] = React.useState(false);
     const classes = useStyles()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const {data} = useGetUserByNameQuery(props.post.user)
-    console.log("user by name", JSON.stringify(data))
-
+    const {data} = useGetUserByNameQuery(post.user)
     const open = Boolean(anchorEl);
+    const [editorOpen, setEditorOpen] = React.useState(false);
     const handleMoreActionsClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleBloxxMenuClose = () => {
+    const handleMenuClose = () => {
         setAnchorEl(null);
     };
 
@@ -147,18 +154,38 @@ const PostView = (props: PostCardProps) => {
         setExpanded(!expanded);
     };
 
-    const {post} = props
+    const actionHandler: ActionHandler = {
+        handleEdit: () => {
+            setEditorOpen(true)
+            handleMenuClose()
+        }
+    }
+
+    const savePost = (post: Post) => {
+        console.log("postview: save post", post)
+    }
+
     let user = null
     if (data?.length === 1) user = data[0]
 
     return (
-        <Card>
-            <PostCardHeader post={post} user={user} handleMoreActionsClick={handleMoreActionsClick}/>
-            <PostCardMenu post={post} open={open} anchorEl={anchorEl} handleBloxxMenuClose={handleBloxxMenuClose}/>
-            <PostCardContent post={post}/>
-            <BloxxCardActions post={post} classes={classes} handleExpandClick={handleExpandClick} expanded={expanded}/>
-           <PostCardDetailView post={post} expanded={expanded}/>
-        </Card>
+        <>
+            <Card>
+                <PostCardHeader post={post} user={user} handleMoreActionsClick={handleMoreActionsClick}/>
+                <PostCardMenu post={post}
+                              open={open}
+                              anchorEl={anchorEl}
+                              actionHandler={actionHandler}
+                              handleMenuClose={handleMenuClose}/>
+                <PostCardContent post={post}/>
+                <PostCardActions post={post}
+                                 classes={classes}
+                                 handleExpandClick={handleExpandClick}
+                                 expanded={expanded}/>
+                <PostCardDetailView post={post} expanded={expanded}/>
+            </Card>
+            <PostEditor post={post} onSave={savePost} editorOpen={editorOpen} handleClose={() => setEditorOpen(false)}/>
+        </>
     )
 }
 
