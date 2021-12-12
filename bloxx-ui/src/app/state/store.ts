@@ -3,14 +3,13 @@ import fetchingReducer from 'common/state/fetchingSlice'
 import loginReducer from 'domain/login/state/loginSlice'
 import postReducer from 'domain/post/state/postSlice'
 import {userApi} from "domain/user/api/userApi";
-import {saveState} from "common/infrastructure/localStorage";
-import throttle from 'lodash/throttle'
 
 const store = configureStore({
     reducer: {
         fetchingState: fetchingReducer,
         loginState: loginReducer,
         postState: postReducer,
+        // eslint-disable-next-line
         ["api/userApi"]: userApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>

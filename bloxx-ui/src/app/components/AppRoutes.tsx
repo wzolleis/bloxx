@@ -1,5 +1,5 @@
 import React from "react";
-import {useNavigate, useRoutes} from "react-router-dom";
+import {useRoutes} from "react-router-dom";
 import {RouteObject} from "react-router";
 import Layout from "app/components/Layout";
 import WelcomeView from "common/components/WelcomeView";
