@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {AppDispatch, AppState} from "app/state/store";
+import {AppState} from "app/state/store";
 import {Post} from "common/types/commonTypes";
 import {remove, update} from "utils/arrayUtils";
 

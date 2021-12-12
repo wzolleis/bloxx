@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react'
-import {Post, User} from "common/types/commonTypes";
+import { User} from "common/types/commonTypes";
 
 // Define a service using a base URL and expected endpoints
 export const userApi = createApi({

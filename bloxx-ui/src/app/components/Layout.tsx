@@ -1,8 +1,6 @@
 import React, {PropsWithChildren} from "react";
 import {
     AppBar,
-    Box,
-    Button,
     Drawer,
     List,
     ListItem,
@@ -20,7 +18,6 @@ import {AppTheme} from "app/components/App";
 import {useAppSelector} from "app/state/hooks";
 import {messages} from "common/i18n/messages";
 import {selectLoginState} from "domain/login/state/loginSlice";
-import userRepository from "domain/user/repository/userRepository";
 import {useGetUserByKeyQuery} from "domain/user/api/userApi";
 
 const drawerWidth = 240

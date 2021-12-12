@@ -8,6 +8,8 @@ const authenticate = async ({email, password}: {email: Email, password: Password
     return Promise.resolve(objectKeys.user.jack)
 }
 
-export default {
+const authenticationService = {
     authenticate
 }
+
+export default authenticationService

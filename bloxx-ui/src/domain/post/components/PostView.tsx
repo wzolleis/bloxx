@@ -16,7 +16,6 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import {ClassNameMap, makeStyles} from "@mui/styles";
 import {messages} from "common/i18n/messages";
 import {Post, Nullable, User} from "common/types/commonTypes";
-import userRepository from "domain/user/repository/userRepository";
 import {useGetUserByNameQuery} from "domain/user/api/userApi";
 
 const styles = {
