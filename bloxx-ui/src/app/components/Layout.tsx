@@ -1,18 +1,8 @@
 import React, {PropsWithChildren} from "react";
-import {
-    AppBar,
-    Drawer,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
-    Toolbar,
-    Typography
-} from "@mui/material";
+import {AppBar, Drawer, List, ListItem, ListItemIcon, ListItemText, Toolbar, Typography} from "@mui/material";
 import {makeStyles} from '@mui/styles';
 import {getIcon} from "common/icons/iconFactory";
-import {useLocation, useNavigate} from "react-router-dom";
-import {Outlet} from 'react-router-dom'
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {menuItems} from "app/menu/data/appMenuEntries";
 import {AppTheme} from "app/components/App";
 import {useAppSelector} from "app/state/hooks";
@@ -75,7 +65,7 @@ const Layout = ({children}: PropsWithChildren<{}>) => {
             >
                 <Toolbar>
                     <div className={classes.userName}>
-                        <Typography>{`Hi ${user?.name || messages.common.noSelection}`}</Typography>
+                        <Typography>{`Hi ${user?.name || messages.common.noUser}`}</Typography>
                     </div>
                 </Toolbar>
             </AppBar>

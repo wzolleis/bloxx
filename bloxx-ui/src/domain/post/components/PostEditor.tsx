@@ -45,10 +45,10 @@ export default function PostEditor({post, onSave, handleClose, editorOpen}: Post
 
     return (
         <Dialog open={editorOpen} onClose={handleClose} fullWidth={true}>
-            <DialogTitle>{messages.postEditor.dlgtitle}</DialogTitle>
+            <DialogTitle>{messages.postEditor.description(post.title)}</DialogTitle>
             <DialogContent>
                 <DialogContentText>
-                    {messages.postEditor.dlgdescription}
+                    {messages.postEditor.title}
                 </DialogContentText>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <Controller
@@ -59,7 +59,7 @@ export default function PostEditor({post, onSave, handleClose, editorOpen}: Post
                             <TextField
                                 autoFocus
                                 margin="dense"
-                                label="Titel"
+                                label={messages.postEditor.fields.title}
                                 type="text"
                                 fullWidth
                                 variant="standard"
@@ -75,7 +75,7 @@ export default function PostEditor({post, onSave, handleClose, editorOpen}: Post
                             <TextField
                                 autoFocus
                                 margin="dense"
-                                label="Inhalt"
+                                label={messages.postEditor.fields.content}
                                 type="text"
                                 fullWidth
                                 variant="standard"

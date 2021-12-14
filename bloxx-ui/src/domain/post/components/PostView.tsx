@@ -89,7 +89,7 @@ const PostCardHeader = ({post, user, handleMoreActionsClick}: PostCardHeaderProp
                 </IconButton>
             }
             title={title}
-            subheader={user?.name || messages.postEditor.noUser}
+            subheader={user?.name || messages.common.noUser}
         />
     )
 }

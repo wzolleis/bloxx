@@ -1,6 +1,8 @@
 export const messages = {
     common: {
         noSelection: 'Es ist nichts selektiert',
+        noContent: "Kein Inhalt",
+        noUser: "Unbekannter User",
         btnSave: 'Speichern',
         btnCancel: "Abbruch",
     },
@@ -11,9 +13,11 @@ export const messages = {
         create: 'Neu...'
     },
     postEditor: {
-        dlgtitle: 'Ändern',
-        dlgdescription: 'Daten des Posts ändern',
-        noContent: "Kein Inhalt",
-        noUser: "Unbekannter User"
+        title: 'Gib hier die neuen Daten ein',
+        description: (title: string) => `Daten des Posts "${title}" ändern`,
+        fields: {
+            title: "Titel",
+            content: "Inhalt"
+        }
     }
 }
