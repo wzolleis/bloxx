@@ -7,12 +7,14 @@ export interface WithKey {
 }
 
 export interface User extends WithKey {
+    id: string
     name: string
     mail: Email,
     password: string
 }
 
 export interface Post extends WithKey {
+    id: string,
     user: ObjectKey
     title: string
     content: string

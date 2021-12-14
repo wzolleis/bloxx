@@ -21,6 +21,8 @@ import {messages} from "common/i18n/messages";
 import {ActionHandler, Nullable, Post, User} from "common/types/commonTypes";
 import {useGetUserByNameQuery} from "domain/user/api/userApi";
 import PostEditor from "domain/post/components/PostEditor";
+import {useAppDispatch} from "app/state/hooks";
+import {savePost} from "domain/post/actions/postActions";
 
 const styles = {
     parentFlexSplit: {
@@ -87,7 +89,7 @@ const PostCardHeader = ({post, user, handleMoreActionsClick}: PostCardHeaderProp
                 </IconButton>
             }
             title={title}
-            subheader={user?.name || messages.common.noSelection}
+            subheader={user?.name || messages.postEditor.noUser}
         />
     )
 }
@@ -99,7 +101,7 @@ interface PostCardMenuProps extends PostCardProps {
     actionHandler: ActionHandler
 }
 
-const PostCardMenu = ({post, actionHandler, handleMenuClose, anchorEl, open}: PostCardMenuProps) => {
+const PostCardMenu = ({actionHandler, handleMenuClose, anchorEl, open}: PostCardMenuProps) => {
     const {handleEdit} = actionHandler
 
     return (
@@ -137,6 +139,7 @@ const PostCardDetailView = ({post, expanded}: PostCardDetailViewProps) => {
 }
 
 const PostView = ({post}: PostCardProps) => {
+    const dispatch = useAppDispatch()
     const [expanded, setExpanded] = React.useState(false);
     const classes = useStyles()
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -161,8 +164,9 @@ const PostView = ({post}: PostCardProps) => {
         }
     }
 
-    const savePost = (post: Post) => {
-        console.log("postview: save post", post)
+    const handleSavePost = (post: Post) => {
+        console.log('dispatch savePost')
+        dispatch(savePost(post))
     }
 
     let user = null
@@ -184,7 +188,8 @@ const PostView = ({post}: PostCardProps) => {
                                  expanded={expanded}/>
                 <PostCardDetailView post={post} expanded={expanded}/>
             </Card>
-            <PostEditor post={post} onSave={savePost} editorOpen={editorOpen} handleClose={() => setEditorOpen(false)}/>
+            <PostEditor post={post} onSave={handleSavePost} editorOpen={editorOpen}
+                        handleClose={() => setEditorOpen(false)}/>
         </>
     )
 }

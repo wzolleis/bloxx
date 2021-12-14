@@ -1,8 +1,7 @@
-// import {actions} from "domain/post/state/postSlice";
 import {AppDispatch} from "app/state/store";
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {Post} from "common/types/commonTypes";
-import {listPosts} from "domain/post/state/postSlice";
+import {listPosts, updatePost} from "domain/post/state/postSlice";
 
 const restApi = axios.create({
     baseURL: 'http://localhost:5000/api',
@@ -13,6 +12,11 @@ const restApi = axios.create({
 export const findAllPosts = () => async (dispatch: AppDispatch) => {
     // dispatch(action.start)
     const response = await restApi.get<Post[]>("/posts")
-    // dispatch result
     dispatch(listPosts(response.data))
+}
+
+export const savePost = (post: Post) => async (dispatch: AppDispatch) => {
+    const url = `/posts/${post.id}`
+    const updateResponse = await restApi.put<Post, AxiosResponse<Post>>(url, post)
+    dispatch(updatePost(updateResponse.data))
 }

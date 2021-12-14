@@ -24,10 +24,10 @@ interface PostFormData {
 }
 
 export default function PostEditor({post, onSave, handleClose, editorOpen}: PostEditorProps) {
-    const {handleSubmit, control, watch, getValues, formState: {errors}} = useForm<PostFormData>({
+    const {handleSubmit, control, getValues} = useForm<PostFormData>({
         defaultValues: {
-            content: post.content,
-            title: post.title
+            content: post.content || "",
+            title: post.title || ""
         }
     });
     const onSubmit: SubmitHandler<PostFormData> = (data: PostFormData, event?: React.BaseSyntheticEvent) => {
@@ -59,7 +59,7 @@ export default function PostEditor({post, onSave, handleClose, editorOpen}: Post
                             <TextField
                                 autoFocus
                                 margin="dense"
-                                label="Title"
+                                label="Titel"
                                 type="text"
                                 fullWidth
                                 variant="standard"

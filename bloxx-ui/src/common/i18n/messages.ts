@@ -12,6 +12,8 @@ export const messages = {
     },
     postEditor: {
         dlgtitle: 'Ändern',
-        dlgdescription: 'Daten des Posts ändern'
+        dlgdescription: 'Daten des Posts ändern',
+        noContent: "Kein Inhalt",
+        noUser: "Unbekannter User"
     }
 }
